@@ -11,6 +11,14 @@ const sairtop = () => {
 
 
 const botao = document.getElementById("btsalvar");
-botao.addEventListener("click", function() {
-    alert("LOBATO");
-});
+if (botao) {
+    botao.addEventListener("click", function() {
+        const toastEl = document.getElementById("notificacao");
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+}
+
+
