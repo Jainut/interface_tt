@@ -5,15 +5,15 @@ const voltarLogin = () => {
 const logar = () => {
     window.location.href = "telaTop.htm"
 
-
+}
 
 const sairtop = () => {
     window.location.href = "login.htm"
 }
 
 const voltarTop = () => {
-    window.location.href =     
-}}
+    window.location.href ="login.htm"     
+}
 
 
 
