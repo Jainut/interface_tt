@@ -10,7 +10,7 @@ const sairtop = () => {
 }
 
 
-const salva = ()=> {
-
-
-}
+const botao = document.getElementById("btsalvar");
+botao.addEventListener("click", function() {
+    alert("funcinou");
+});
