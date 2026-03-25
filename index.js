@@ -12,5 +12,5 @@ const sairtop = () => {
 
 const botao = document.getElementById("btsalvar");
 botao.addEventListener("click", function() {
-    alert("funcinou");
+    alert("LOBATO");
 });
