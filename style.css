@@ -1,0 +1,24 @@
+.cardTop{
+/* Desktop - 2 */
+
+position: relative;
+width: 315px;
+height: 374px;
+
+background: wheat;
+border-radius: 35px;
+}
+
+.Registro{
+    /* Rectangle 7 */
+
+position: absolute;
+width: 1260px;
+height: 520px;
+left: 349px;
+top: 320px;
+
+background: rgba(217, 217, 217, 0.2);
+border-radius: 35px;
+
+}
