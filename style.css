@@ -1,24 +1,43 @@
-.cardTop{
-/* Desktop - 2 */
 
-position: relative;
-width: 315px;
-height: 374px;
-
-background: rgb(163, 114, 24);
-border-radius: 35px;
+.navbar-top {
+    background-color: #7C6FCD;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.Registro{
-    /* Rectangle 7 */
-
-position: absolute;
-width: 1260px;
-height: 520px;
-left: 349px;
-top: 320px;
-
-background: rgba(217, 217, 217, 0.2);
-border-radius: 35px;
-
+.navbar-top .brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
 }
+
+.navbar-top .nav-icons {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.cardTop {
+    position: relative;
+    width: 315px;
+    height: 374px;
+    background: rgb(163, 114, 24);
+    border-radius: 35px;
+}
+
+.Registro {
+    position: absolute;
+    width: 1260px;
+    height: 520px;
+    left: 349px;
+    top: 320px;
+    margin: 80px auto;
+    background: rgba(20, 206, 14, 0.2);
+    border-radius: 35px;
+}
+
+.row-salvar { display: flex; justify-content: center; }
+.row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
