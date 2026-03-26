@@ -1,0 +1,163 @@
+-- 1. Criação do Banco de Dados
+DROP DATABASE IF EXISTS atividade_integracao_chao_fabrica_erp2;
+CREATE DATABASE atividade_integracao_chao_fabrica_erp2;
+USE atividade_integracao_chao_fabrica_erp2;
+
+-- =========================
+-- TABELAS (Ordem correta para evitar erro de FK)
+-- =========================
+
+CREATE TABLE produto (
+    IdProduto INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(50),
+    DataDeEntrada DATETIME,
+    DataDeSaida DATETIME
+);
+
+CREATE TABLE Colaborador (
+    IdColaborador INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Matricula VARCHAR(50) UNIQUE, -- Adicionado Unique para o Trigger funcionar melhor
+    Cargo VARCHAR(50),
+    Setor VARCHAR(50),
+    Ativo BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE OrdemProducao (
+    IdOrdemProducao INT AUTO_INCREMENT PRIMARY KEY,
+    CodigoDeOrdem VARCHAR(50),
+    IdProduto INT,
+    Quantidade INT,
+    DataInicio DATE,
+    DataFim DATE,
+    StatusO VARCHAR(50),
+    FOREIGN KEY (IdProduto) REFERENCES produto(IdProduto)
+);
+
+CREATE TABLE EtapaDeProducao (
+    IdEtapa INT AUTO_INCREMENT PRIMARY KEY,
+    NomeEtapa VARCHAR(50),
+    Descricao VARCHAR(100),
+    OrdemSequencia INT
+);
+
+CREATE TABLE InspecaoQualidade (
+    IdInspecao INT AUTO_INCREMENT PRIMARY KEY,
+    DataHora DATETIME,
+    TipoInspecao VARCHAR(100),
+    Resultado VARCHAR(50),
+    Observacoes VARCHAR(50),
+    IdOrdemProducao INT,
+    IdColaborador INT,
+    FOREIGN KEY (IdOrdemProducao) REFERENCES OrdemProducao(IdOrdemProducao),
+    FOREIGN KEY (IdColaborador) REFERENCES Colaborador(IdColaborador)
+);
+
+CREATE TABLE IntegracaoERP (
+    IdIntegracao INT AUTO_INCREMENT PRIMARY KEY,
+    TipoRegistro VARCHAR(50),
+    IdRegistroOrigem INT,
+    DataEnvio DATETIME,
+    StatusEnvio VARCHAR(50),
+    MensagemErro TEXT
+);
+
+CREATE TABLE NaoConformidade (
+    IdNaoConformidade INT AUTO_INCREMENT PRIMARY KEY,
+    TipoRegistro VARCHAR(50),
+    IdRegistroOrigem INT,
+    DataEnvio DATETIME,
+    StatusEnvio VARCHAR(50),
+    MensagemErro TEXT
+);
+
+CREATE TABLE ApontamentoProducao (
+    IdApontamento INT AUTO_INCREMENT PRIMARY KEY,
+    DataHoraInicio DATETIME,
+    DataHoraFim DATETIME,
+    Status VARCHAR(50),
+    IdOrdemProducao INT,
+    IdEtapa INT,
+    IdColaborador INT,
+    FOREIGN KEY (IdOrdemProducao) REFERENCES OrdemProducao(IdOrdemProducao),
+    FOREIGN KEY (IdColaborador) REFERENCES Colaborador(IdColaborador),
+    FOREIGN KEY (IdEtapa) REFERENCES EtapaDeProducao(IdEtapa)
+);
+
+CREATE TABLE MovimentacaoDeProducao (
+    IdMovimentacao INT AUTO_INCREMENT PRIMARY KEY,
+    DataHora DATETIME,
+    Descricao VARCHAR(50),
+    IdOrdemProducao INT,
+    IdEtapa INT,
+    IdColaborador INT,
+    FOREIGN KEY (IdOrdemProducao) REFERENCES OrdemProducao(IdOrdemProducao),
+    FOREIGN KEY (IdColaborador) REFERENCES Colaborador(IdColaborador),
+    FOREIGN KEY (IdEtapa) REFERENCES EtapaDeProducao(IdEtapa)
+);
+
+-- =========================
+-- PROCEDURES
+-- =========================
+DELIMITER $$
+
+-- Produto
+CREATE PROCEDURE CadastrarProduto (IN p_Nome VARCHAR(50), IN p_DataDeSaida DATETIME)
+BEGIN
+    INSERT INTO produto (Nome, DataDeSaida) VALUES (p_Nome, p_DataDeSaida);
+END $$
+
+-- Colaborador
+CREATE PROCEDURE CadastrarColaborador(
+    IN p_Nome VARCHAR(100), IN p_Matricula VARCHAR(50), IN p_Cargo VARCHAR(50), IN p_Setor VARCHAR(50), IN p_Ativo BOOLEAN
+)
+BEGIN
+    INSERT INTO Colaborador (Nome, Matricula, Cargo, Setor, Ativo) 
+    VALUES (p_Nome, p_Matricula, p_Cargo, p_Setor, p_Ativo);
+END $$
+
+-- Ordem de Produção
+CREATE PROCEDURE CadastrarOrdemProducao (
+    IN p_CodigoDeOrdem VARCHAR(50), IN p_IdProduto INT, IN p_Quantidade INT, IN p_DataInicio DATE, IN p_DataFim DATE, IN p_StatusO VARCHAR(50)
+)
+BEGIN
+    INSERT INTO OrdemProducao (CodigoDeOrdem, IdProduto, Quantidade, DataInicio, DataFim, StatusO)
+    VALUES (p_CodigoDeOrdem, p_IdProduto, p_Quantidade, p_DataInicio, p_DataFim, p_StatusO);
+END $$
+
+-- Inspeção
+CREATE PROCEDURE CadastrarInspecao (
+    IN p_DataHora DATETIME, IN p_TipoInspecao VARCHAR(100), IN p_Resultado VARCHAR(50), IN p_Observacoes VARCHAR(50), IN p_IdOrdem INT, IN p_IdColab INT
+)
+BEGIN
+    INSERT INTO InspecaoQualidade (DataHora, TipoInspecao, Resultado, Observacoes, IdOrdemProducao, IdColaborador)
+    VALUES (p_DataHora, p_TipoInspecao, p_Resultado, p_Observacoes, p_IdOrdem, p_IdColab);
+END $$
+
+DELIMITER ;
+
+-- =========================
+-- TRIGGERS
+-- =========================
+DELIMITER $$
+
+CREATE TRIGGER trg_Produto_Insert BEFORE INSERT ON produto FOR EACH ROW
+BEGIN
+    SET NEW.DataDeEntrada = NOW();
+END $$
+
+CREATE TRIGGER trg_Colaborador_Insert BEFORE INSERT ON Colaborador FOR EACH ROW
+BEGIN
+    IF EXISTS (SELECT 1 FROM Colaborador WHERE Matricula = NEW.Matricula) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Matricula já cadastrada';
+    END IF;
+END $$
+
+CREATE TRIGGER trg_ApontamentoProducao_Insert BEFORE INSERT ON ApontamentoProducao FOR EACH ROW
+BEGIN
+    IF NEW.DataHoraFim < NEW.DataHoraInicio THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'DataHoraFim não pode ser menor que DataHoraInicio';
+    END IF;
+END $$
+
+DELIMITER ;
