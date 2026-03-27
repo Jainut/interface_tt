@@ -8,20 +8,20 @@ $senha = filter_input(INPUT_POST, 'senha');
 if ($email && $senha) {
     try {
         // Busca o usuário pelo e-mail
-        $sql = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email");
+        $sql = $pdo->prepare("SELECT * FROM colaborador WHERE email = :email");
         $sql->bindValue(':email', $email);
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
-            $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+            $colaborador = $sql->fetch(PDO::FETCH_ASSOC);
 
             // Verifica se a senha digitada combina com o hash do banco
-            if (password_verify($senha, $usuario['senha'])) {
+            if ($senha == $colaborador['senha']) {
                 // Login com sucesso! Salva na sessão:
-                $_SESSION['usuario_id'] = $usuario['id'];
-                $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['colaborador_id'] = $colaborador['id'];
+                $_SESSION['colaborador_nome'] = $colaborador['nome'];
 
-                header("Location: dashboard.php"); // Mude para sua página inicial após login
+                header("Location: index.php"); // Mude para sua página inicial após login
                 exit();
             } else {
                 echo "Senha incorreta!";

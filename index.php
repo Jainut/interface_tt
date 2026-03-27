@@ -8,16 +8,9 @@
 <body class="bg-light">
     <div class="container py-5">
         <h1 class="text-center mb-5">Menu Principal - ERP</h1>
-        
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card shadow-sm text-center p-3">
-                    <h5>Colaboradores</h5>
-                    <a href="cadastro.htm" class="btn btn-primary mb-2">Novo Colaborador</a>
-                    <a href="listar.php" class="btn btn-outline-primary">Ver Lista</a>
-                </div>
-            </div>
 
+        <div class="row justify-content-center gap-3">
+            
             <div class="col-md-4">
                 <div class="card shadow-sm text-center p-3">
                     <h5>Produtos</h5>
@@ -33,6 +26,7 @@
                     <a href="listar_op.php" class="btn btn-outline-warning">Monitorar OPs</a>
                 </div>
             </div>
+
         </div>
     </div>
 </body>

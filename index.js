@@ -11,13 +11,6 @@ const sairtop = () => {
     window.location.href = "login.htm"
 }
 
-const voltarTop = () => {
-    window.location.href =     
-}}
-
-
-
-
 const limparFormularioOP = () => {
     document.getElementById("numOP").value = "";
     document.getElementById("produto").value = "";
@@ -26,13 +19,11 @@ const limparFormularioOP = () => {
     document.getElementById("status").value = "";
     document.getElementById("responsavel").value = "";
     document.getElementById("equipamento").value = "";
-   
 }
 
-
-
-const editarOP = (botao) => {
-    
+const limparLogin = () => {
+    document.getElementById("email").value=""
+    document.getElementById("senha").value=""
 }
 
 const excluirOP = (botao) => {
@@ -43,9 +34,8 @@ const excluirOP = (botao) => {
 
 document.addEventListener("DOMContentLoaded", function() {
     const botaoSalvar = document.getElementById("salvarOP");
-    
+
     if (botaoSalvar) {
         botaoSalvar.addEventListener("click", salvarOP);
-    }
-    
-})
+    } 
+})}

@@ -17,9 +17,9 @@ CREATE TABLE produto (
 CREATE TABLE Colaborador (
     IdColaborador INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100),
-    Matricula VARCHAR(50) UNIQUE, -- Adicionado Unique para o Trigger funcionar melhor
+    email VARCHAR(255) UNIQUE, -- Adicionado Unique para o Trigger funcionar melhor
     Cargo VARCHAR(50),
-    Setor VARCHAR(50),
+    senha VARCHAR(150),
     Ativo BOOLEAN DEFAULT TRUE
 );
 
@@ -109,11 +109,11 @@ END $$
 
 -- Colaborador
 CREATE PROCEDURE CadastrarColaborador(
-    IN p_Nome VARCHAR(100), IN p_Matricula VARCHAR(50), IN p_Cargo VARCHAR(50), IN p_Setor VARCHAR(50), IN p_Ativo BOOLEAN
+    IN p_Nome VARCHAR(100), IN p_email VARCHAR(50), IN p_Cargo VARCHAR(50), IN p_senha VARCHAR(50), IN p_Ativo BOOLEAN
 )
 BEGIN
-    INSERT INTO Colaborador (Nome, Matricula, Cargo, Setor, Ativo) 
-    VALUES (p_Nome, p_Matricula, p_Cargo, p_Setor, p_Ativo);
+    INSERT INTO Colaborador (Nome, email, Cargo, senha, Ativo) 
+    VALUES (p_Nome, p_email, p_Cargo, p_senha, p_Ativo);
 END $$
 
 -- Ordem de Produção
@@ -148,8 +148,8 @@ END $$
 
 CREATE TRIGGER trg_Colaborador_Insert BEFORE INSERT ON Colaborador FOR EACH ROW
 BEGIN
-    IF EXISTS (SELECT 1 FROM Colaborador WHERE Matricula = NEW.Matricula) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Matricula já cadastrada';
+    IF EXISTS (SELECT 1 FROM Colaborador WHERE email = NEW.email) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Email já cadastrado';
     END IF;
 END $$
 

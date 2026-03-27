@@ -6,7 +6,7 @@ require("conexao.php");
 
 try {
     // Busca todos os colaboradores
-    $sql = "SELECT IdColaborador, Nome, Matricula, Cargo, Setor, Ativo FROM Colaborador";
+    $sql = "SELECT IdColaborador, Nome, Email, Cargo, Senha, Ativo FROM Colaborador";
     $stmt = $pdo->query($sql);
     $colaboradores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -33,9 +33,9 @@ try {
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Matrícula</th>
+                    <th>Email</th>
                     <th>Cargo</th>
-                    <th>Setor</th>
+                    <th>Senha</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -45,9 +45,9 @@ try {
                         <tr>
                             <td><?= $colab['IdColaborador'] ?></td>
                             <td><?= htmlspecialchars($colab['Nome']) ?></td>
-                            <td><?= htmlspecialchars($colab['Matricula']) ?></td>
+                            <td><?= htmlspecialchars($colab['Email']) ?></td>
                             <td><?= htmlspecialchars($colab['Cargo']) ?></td>
-                            <td><?= htmlspecialchars($colab['Setor']) ?></td>
+                            <td><?= htmlspecialchars($colab['Senha']) ?></td>
                             <td><?= $colab['Ativo'] ? 'Ativo' : 'Inativo' ?></td>
                         </tr>
                     <?php endforeach; ?>
