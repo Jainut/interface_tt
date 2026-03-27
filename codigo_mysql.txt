@@ -17,7 +17,7 @@ CREATE TABLE produto (
 CREATE TABLE Colaborador (
     IdColaborador INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100),
-    email VARCHAR(255) UNIQUE, -- Adicionado Unique para o Trigger funcionar melhor
+    email VARCHAR(250) UNIQUE, -- Adicionado Unique para o Trigger funcionar melhor
     Cargo VARCHAR(50),
     senha VARCHAR(150),
     Ativo BOOLEAN DEFAULT TRUE

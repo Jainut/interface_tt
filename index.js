@@ -11,16 +11,18 @@ const sairtop = () => {
     window.location.href = "login.htm"
 }
 
-<<<<<<< HEAD
-=======
 const voltarTop = () => {
     window.location.href ="login.htm"     
 }
 
+const entrarTela = () => {
+    window.location.href="index.php"
+}
 
+const telaOP = () => {
+    window.location.href="telaordemdeprodução.htm"
+}
 
-
->>>>>>> bc4fac83de7a9419f5fbdb5422a014f162b7c5bb
 const limparFormularioOP = () => {
     document.getElementById("numOP").value = "";
     document.getElementById("produto").value = "";
@@ -31,12 +33,10 @@ const limparFormularioOP = () => {
     document.getElementById("equipamento").value = "";
 }
 
-<<<<<<< HEAD
 const limparLogin = () => {
     document.getElementById("email").value=""
     document.getElementById("senha").value=""
 }
-=======
 
 
 const editarOP = (botao) => {
@@ -61,7 +61,6 @@ const editarOP = (botao) => {
         alert("Atualizado com sucesso!");
     }
 };
->>>>>>> bc4fac83de7a9419f5fbdb5422a014f162b7c5bb
 
 const excluirOP = (botao) => {
     if (confirm("Tem certeza que deseja excluir esta OP?")) {
@@ -75,4 +74,4 @@ document.addEventListener("DOMContentLoaded", function() {
     if (botaoSalvar) {
         botaoSalvar.addEventListener("click", salvarOP);
     } 
-})}
+})

@@ -11,17 +11,19 @@ $produtos = $pdo->query("SELECT * FROM produto ORDER BY IdProduto DESC")->fetchA
 </head>
 <body class="bg-light">
     
+    <nav class="navbar bg-primary text-white p-3 shadow-sm mb-4">
+        <span class="fs-4 ms-3">Catálogo de Produtos</span>
+    </nav>
+
     <div class="container py-5">
         <div class="mb-4">
-            <a href="index.php" class="btn btn-outline-success">&laquo; Voltar ao Menu</a>
+            <a href="index.php" class="btn btn-primary">Voltar</a>
         </div>
-
-        <h2 class="text-success mb-4">Catálogo de Produtos</h2>
         
         <div class="card shadow-sm border-0 p-3">
             <div class="table-responsive">
                 <table class="table table-hover mb-0">
-                    <thead class="table-success">
+                    <thead class="table-primary">
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
