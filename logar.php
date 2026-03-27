@@ -21,7 +21,7 @@ if ($email && $senha) {
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
 
-                header("Location: dashboard.php"); // Mude para sua página inicial após login
+                header("Location: telaTop.htm"); // Mude para sua página inicial após login
                 exit();
             } else {
                 echo "Senha incorreta!";

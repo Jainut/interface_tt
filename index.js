@@ -32,12 +32,31 @@ const limparFormularioOP = () => {
 
 
 const editarOP = (botao) => {
+
+   
+    const linha = botao.closest('tr');
+
     
-}
+    const colunas = linha.querySelectorAll('td');
+
+    const codigo    = colunas[0].innerText; // OP001
+    const descricao = colunas[1].innerText; // teste1
+    const qtd       = colunas[2].innerText; // 100
+    const status    = colunas[4].innerText; // Pendente
+
+ 
+    const novaDescricao = prompt("Editar descrição de " + codigo + ":", descricao);
+
+    
+    if (novaDescricao !== null && novaDescricao !== "") {
+        colunas[1].innerText = novaDescricao;
+        alert("Atualizado com sucesso!");
+    }
+};
 
 const excluirOP = (botao) => {
     if (confirm("Tem certeza que deseja excluir esta OP?")) {
-        botao.closest("tr").remove
+        botao.closest("tr").remove();
     }
 }
 
