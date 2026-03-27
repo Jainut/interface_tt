@@ -8,6 +8,7 @@
 <body class="bg-light">
     <nav class="navbar bg-primary text-white p-3 shadow-sm mb-4">
         <span class="fs-4 ms-3">Gestão de Fábrica</span>
+        <i class="bi bi-person"></i>
     </nav>
 
     <div class="container py-5">
@@ -27,7 +28,7 @@
                 <div class="card shadow-sm text-center p-3">
                     <h5>Ordens de Produção</h5>
                     <a href="telaordemdeprodução.htm" class="btn btn-warning mb-2">Criar Nova OP</a>
-                    <a href="ordemprodução.htm" class="btn btn-outline-warning">Monitorar OPs</a>
+                    <a href="ordemprodução.php" class="btn btn-outline-warning">Monitorar OPs</a>
                 </div>
             </div>
 

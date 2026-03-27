@@ -1,5 +1,16 @@
+<?php
+require("conexao.php");
+
+$sql = $pdo->query("
+    SELECT * FROM ordemproducao
+");
+
+$ops = $sql->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,15 +63,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($ops as $op): ?>
                                     <tr class="align-middle">
-                                        <td class="fw-bold">OP001</td>
-                                        <td>teste1</td>
-                                        <td>100</td>
-                                        <td>15/01/24</td>
-                                        <td><span class="badge bg-warning text-dark">Pendente</span></td>
-                                        <td>Weverton</td>
+                                        <td><?= $op['CodigoDeOrdem'] ?></td>
+                                        <td><?= $op['IdProduto'] ?></td>
+                                        <td><?= $op['Quantidade'] ?></td>
+                                        <td><?= $op['DataFim'] ?></td>
+                                        <td><?= $op['StatusO'] ?></td>
                                         <td class="text-center">
-                                            <div class="btn-group btn-group-sm" role="group">
+                                            <div class="btn-group btn-group-sm">
                                                 <button class="btn btn-outline-primary" onclick="editarOP(this)">
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
@@ -70,24 +81,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="align-middle">
-                                        <td class="fw-bold">OP002</td>
-                                        <td>teste2</td>
-                                        <td>50</td>
-                                        <td>20/01/24</td>
-                                        <td><span class="badge bg-info">Em Andamento</span></td>
-                                        <td>Lobato</td>
-                                        <td class="text-center">
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <button class="btn btn-outline-primary" onclick="editarOP(this)">
-                                                    <i class="bi bi-pencil"></i>
-                                                </button>
-                                                <button class="btn btn-outline-danger" onclick="excluirOP(this)">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -96,7 +90,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Toast Notification -->
     <div class="position-fixed top-0 end-0 p-3">
         <div id="notificacao" class="toast align-items-center text-bg-success border-0" role="alert">
@@ -110,4 +104,5 @@
     </div>
 
 </body>
+
 </html>

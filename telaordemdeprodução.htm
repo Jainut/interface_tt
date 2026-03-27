@@ -31,14 +31,8 @@
                 </div>
                 <div class="col-md-6">
                     <label for="id_produto" class="form-label">Produto</label>
-                    <select class="form-select" name="id_produto" id="id_produto" required>
-                        <option value="">Selecione um produto</option>
-                        <?php foreach ($produtos as $produto): ?>
-                        <option value="<?= $produto['IdProduto'] ?>">
-                            <?= htmlspecialchars($produto['Nome']) ?>
-                        </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <input class="form-control" name="id_produto" id="id_produto" required>
+                </input>
                 </div>
             </div>
 
