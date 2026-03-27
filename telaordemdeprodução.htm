@@ -1,14 +1,4 @@
-<?php
-require("conexao.php");
 
-// Busca os produtos cadastrados para preencher o select
-try {
-    $stmt = $pdo->query("SELECT IdProduto, Nome FROM produto");
-    $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Erro ao carregar produtos: " . $e->getMessage());
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -23,15 +13,16 @@ try {
         <span class="fs-4 ms-3">Gestão de Fábrica</span>
     </nav>
 
-    <div class="container">
-        <a href="listar_op.php" class="btn btn-secondary mb-3">Ver Ordens Cadastradas</a>
+    <button class="btn btn-primary position-absolute top-3 start-3 m-3" onclick="voltarTop()">
+        Voltar
+    </button>
 
         <div class="card p-4 shadow">
             <h5 class="text-center mb-4">Abrir Nova Ordem de Produção</h5>
             
             <form action="cadastrar_op.php" method="post">
-                <div class="row mb-3">
-                    <div class="col-md-6">
+                <div class="row mb-3 ">
+                    <div class="col-md-2">
                         <label for="codigo_ordem" class="form-label">Código da OP</label>
                         <input type="text" class="form-control" name="codigo_ordem" id="codigo_ordem" placeholder="Ex: OP-2026-001" required>
                     </div>
@@ -72,7 +63,7 @@ try {
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Cadastrar Ordem de Produção</button>
+                <button type="submit" class="btn btn-primary w-44">Cadastrar Ordem de Produção</button>
             </form>
         </div>
     </div>
