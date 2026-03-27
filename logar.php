@@ -22,7 +22,6 @@ if ($email && $senha) {
                 $_SESSION['colaborador_nome'] = $colaborador['nome'];
 
                 header("Location: index.php"); // Mude para sua página inicial após login
-                header("Location: telaTop.htm"); // Mude para sua página inicial após login
                 exit();
             } else {
                 echo "Senha incorreta!";
