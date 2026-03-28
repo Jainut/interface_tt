@@ -43,9 +43,9 @@ $ops = $sql->fetchAll(PDO::FETCH_ASSOC);
                                 <i class="bi bi-clipboard-data me-2 text-primary"></i>
                                 Ordens de Produção
                             </h5>
-                            <button class="btn btn-primary btn-sm" onclick="telaOP()">
+                            <a class="btn btn-primary btn-sm" href="telaordemdeprodução.php">
                                 <i class="bi bi-plus-circle me-1"></i> Nova OP
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="card-body">

@@ -27,7 +27,7 @@
             <div class="col-md-4">
                 <div class="card shadow-sm text-center p-3">
                     <h5>Ordens de Produção</h5>
-                    <a href="telaordemdeprodução.htm" class="btn btn-warning mb-2">Criar Nova OP</a>
+                    <a href="telaordemdeprodução.php" class="btn btn-warning mb-2">Criar Nova OP</a>
                     <a href="ordemprodução.php" class="btn btn-outline-warning">Monitorar OPs</a>
                 </div>
             </div>

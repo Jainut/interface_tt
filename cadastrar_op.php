@@ -15,32 +15,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($codigo_ordem && $id_produto && $quantidade && $data_inicio && $data_fim && $status_o) {
         try {
-            // Chamando a procedure do seu banco de dados
             $sql = "CALL CadastrarOrdemProducao(:codigo, :produto, :qtd, :inicio, :fim, :status)";
             $stmt = $pdo->prepare($sql);
-            
+
             $stmt->bindValue(':codigo', $codigo_ordem);
             $stmt->bindValue(':produto', $id_produto, PDO::PARAM_INT);
             $stmt->bindValue(':qtd', $quantidade, PDO::PARAM_INT);
             $stmt->bindValue(':inicio', $data_inicio);
             $stmt->bindValue(':fim', $data_fim);
             $stmt->bindValue(':status', $status_o);
-            
+
             $stmt->execute();
 
-            echo "<h1>OP Cadastrada com Sucesso!</h1>";
-            echo "A ordem de produção <strong>$codigo_ordem</strong> foi criada.<br><br>";
-            echo "<a href='cadastro_op.php'>Criar nova OP</a> | <a href='listar_op.php'>Ver todas as OPs</a>";
-            
+            header("Location: cadastro_op.php?sucesso=1");
+            exit;
+
         } catch (PDOException $e) {
-            echo "Erro no Banco de Dados: " . $e->getMessage();
-            echo "<br><br><a href='cadastro_op.php'>Voltar</a>";
+            header(
+                "Location: cadastro_op.php?erro=banco" .
+                "&codigo_ordem=" . urlencode($codigo_ordem) .
+                "&id_produto=" . urlencode($id_produto) .
+                "&quantidade=" . urlencode($quantidade) .
+                "&data_inicio=" . urlencode($data_inicio) .
+                "&data_fim=" . urlencode($data_fim) .
+                "&status_o=" . urlencode($status_o)
+            );
+            exit;
         }
-    } else {
-        echo "Erro: Todos os campos são obrigatórios.";
-        echo "<br><a href='cadastro_op.php'>Voltar</a>";
     }
-} else {
-    echo "Acesso inválido.";
+
+    header("Location: cadastro_op.php?erro=campos_vazios");
+    exit;
 }
 ?>

@@ -20,7 +20,7 @@ const entrarTela = () => {
 }
 
 const telaOP = () => {
-    window.location.href="telaordemdeprodução.htm"
+    window.location.href="telaordemdeprodução.php"
 }
 
 const limparFormularioOP = () => {
