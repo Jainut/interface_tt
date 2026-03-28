@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <title>ERP - Chão de Fábrica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
-    <nav class="navbar bg-primary text-white p-3 shadow-sm mb-4">
+    
+    <nav class="navbar bg-primary text-white p-3 shadow-sm mb-4 d-flex justify-content-between">
         <span class="fs-4 ms-3">Gestão de Fábrica</span>
-        <i class="bi bi-person"></i>
+        <div class="me-3">
+            <i class="bi bi-person fs-4 me-3"></i>
+            <a href="logout.php" class="btn btn-danger btn-sm">Sair</a>
+        </div>
     </nav>
 
     <div class="container py-5">

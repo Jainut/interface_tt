@@ -3,7 +3,7 @@ $erro = $_GET['erro'] ?? null;
 $sucesso = $_GET['sucesso'] ?? null;
 
 $codigo_ordem = $_GET['codigo_ordem'] ?? '';
-$id_produto = $_GET['id_produto'] ?? '';
+$produto = $_GET['produto'] ?? '';
 $quantidade = $_GET['quantidade'] ?? '';
 $data_inicio = $_GET['data_inicio'] ?? '';
 $data_fim = $_GET['data_fim'] ?? '';
@@ -62,8 +62,8 @@ $status_o = $_GET['status_o'] ?? 'Planejada';
 
                 <div class="col-md-6">
                     <label class="form-label">Produto</label>
-                    <input class="form-control" name="id_produto"
-                        value="<?= htmlspecialchars($id_produto) ?>" required>
+                    <input class="form-control" name="produto"
+                        value="<?= htmlspecialchars($produto) ?>" required>
                 </div>
             </div>
 
@@ -102,7 +102,7 @@ $status_o = $_GET['status_o'] ?? 'Planejada';
                 Cadastrar Ordem de Produção
             </button>
         </form>
-    </div>
+    </div>  
 
 </body>
 </html>
