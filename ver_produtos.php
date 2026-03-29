@@ -1,5 +1,7 @@
 <?php
 require("conexao.php");
+
+// Busca apenas os produtos para exibir na tela
 $produtos = $pdo->query("SELECT * FROM produto ORDER BY IdProduto DESC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -22,22 +24,33 @@ $produtos = $pdo->query("SELECT * FROM produto ORDER BY IdProduto DESC")->fetchA
         
         <div class="card shadow-sm border-0 p-3">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover align-middle mb-0">
                     <thead class="table-primary">
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Entrada (Trigger)</th>
                             <th>Saída Prevista</th>
+                            <th>Status Inspeção</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($produtos as $p): ?>
                         <tr>
                             <td><?= $p['IdProduto'] ?></td>
-                            <td><?= $p['Nome'] ?></td>
+                            <td><?= htmlspecialchars($p['Nome']) ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($p['DataDeEntrada'])) ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($p['DataDeSaida'])) ?></td>
+                            
+                            <td>
+                                <?php if (!$p['Inspecionado']): ?>
+                                    <span class="badge bg-warning text-dark">Pendente</span>
+                                <?php elseif ($p['Aprovado']): ?>
+                                    <span class="badge bg-success">Aprovado</span>
+                                <?php else: ?>
+                                    <span class="badge bg-danger">Reprovado</span>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

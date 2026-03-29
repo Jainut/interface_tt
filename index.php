@@ -21,19 +21,27 @@
 
         <div class="row justify-content-center gap-3">
             
-            <div class="col-md-4">
-                <div class="card shadow-sm text-center p-3">
+            <div class="col-md-3">
+                <div class="card shadow-sm text-center p-3 h-100">
                     <h5>Produtos</h5>
-                    <a href="cadastro_produto.htm" class="btn btn-success mb-2">Novo Produto</a>
+                    <a href="cadastro_produto.htm" class="btn btn-success mb-2 mt-auto">Novo Produto</a>
                     <a href="ver_produtos.php" class="btn btn-outline-success">Ver Catálogo</a>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card shadow-sm text-center p-3">
+            <div class="col-md-3">
+                <div class="card shadow-sm text-center p-3 h-100">
                     <h5>Ordens de Produção</h5>
-                    <a href="telaordemdeprodução.php" class="btn btn-warning mb-2">Criar Nova OP</a>
+                    <a href="telaordemdeprodução.php" class="btn btn-warning mb-2 mt-auto">Criar Nova OP</a>
                     <a href="ordemprodução.php" class="btn btn-outline-warning">Monitorar OPs</a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm text-center p-3 h-100">
+                    <h5>Inspeção de Qualidade</h5>
+                    <a href="realizar_inspecao.php" class="btn btn-info text-white mb-2 mt-auto">Realizar Inspeção</a>
+                    <a href="ver_relatorios.php" class="btn btn-outline-info">Ver Relatórios</a>
                 </div>
             </div>
 

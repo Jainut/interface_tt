@@ -4,20 +4,22 @@ CREATE DATABASE atividade_integracao_chao_fabrica_erp2;
 USE atividade_integracao_chao_fabrica_erp2;
 
 -- =========================
--- TABELAS (Ordem correta para evitar erro de FK)
+-- TABELAS
 -- =========================
 
 CREATE TABLE produto (
     IdProduto INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(50),
     DataDeEntrada DATETIME,
-    DataDeSaida DATETIME
+    DataDeSaida DATETIME,
+    Inspecionado BOOLEAN DEFAULT FALSE,
+    Aprovado BOOLEAN DEFAULT NULL
 );
 
 CREATE TABLE Colaborador (
     IdColaborador INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100),
-    email VARCHAR(250) UNIQUE, -- Adicionado Unique para o Trigger funcionar melhor
+    email VARCHAR(250) UNIQUE,
     Cargo VARCHAR(50),
     senha VARCHAR(150),
     Ativo BOOLEAN DEFAULT TRUE
@@ -25,13 +27,12 @@ CREATE TABLE Colaborador (
 
 CREATE TABLE OrdemProducao (
     IdOrdemProducao INT AUTO_INCREMENT PRIMARY KEY,
-    CodigoDeOrdem VARCHAR(50),
-    IdProduto INT,
+    CodigoDeOrdem VARCHAR(50) UNIQUE,
+    Produto VARCHAR(100),
     Quantidade INT,
     DataInicio DATE,
     DataFim DATE,
-    StatusO VARCHAR(50),
-    FOREIGN KEY (IdProduto) REFERENCES produto(IdProduto)
+    StatusO VARCHAR(50)
 );
 
 CREATE TABLE EtapaDeProducao (
@@ -101,13 +102,11 @@ CREATE TABLE MovimentacaoDeProducao (
 -- =========================
 DELIMITER $$
 
--- Produto
 CREATE PROCEDURE CadastrarProduto (IN p_Nome VARCHAR(50), IN p_DataDeSaida DATETIME)
 BEGIN
     INSERT INTO produto (Nome, DataDeSaida) VALUES (p_Nome, p_DataDeSaida);
 END $$
 
--- Colaborador
 CREATE PROCEDURE CadastrarColaborador(
     IN p_Nome VARCHAR(100), IN p_email VARCHAR(50), IN p_Cargo VARCHAR(50), IN p_senha VARCHAR(50), IN p_Ativo BOOLEAN
 )
@@ -116,16 +115,14 @@ BEGIN
     VALUES (p_Nome, p_email, p_Cargo, p_senha, p_Ativo);
 END $$
 
--- Ordem de Produção
 CREATE PROCEDURE CadastrarOrdemProducao (
-    IN p_CodigoDeOrdem VARCHAR(50), IN p_IdProduto INT, IN p_Quantidade INT, IN p_DataInicio DATE, IN p_DataFim DATE, IN p_StatusO VARCHAR(50)
+    IN p_CodigoDeOrdem VARCHAR(50), IN p_Produto VARCHAR(100), IN p_Quantidade INT, IN p_DataInicio DATE, IN p_DataFim DATE, IN p_StatusO VARCHAR(50)
 )
 BEGIN
-    INSERT INTO OrdemProducao (CodigoDeOrdem, IdProduto, Quantidade, DataInicio, DataFim, StatusO)
-    VALUES (p_CodigoDeOrdem, p_IdProduto, p_Quantidade, p_DataInicio, p_DataFim, p_StatusO);
+    INSERT INTO OrdemProducao (CodigoDeOrdem, Produto, Quantidade, DataInicio, DataFim, StatusO)
+    VALUES (p_CodigoDeOrdem, p_Produto, p_Quantidade, p_DataInicio, p_DataFim, p_StatusO);
 END $$
 
--- Inspeção
 CREATE PROCEDURE CadastrarInspecao (
     IN p_DataHora DATETIME, IN p_TipoInspecao VARCHAR(100), IN p_Resultado VARCHAR(50), IN p_Observacoes VARCHAR(50), IN p_IdOrdem INT, IN p_IdColab INT
 )
